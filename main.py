@@ -13,4 +13,12 @@ def print_n_times(*values, n=2):
             print()
 print_n_times("안녕하세요","여행 좋아하는","전기성 입니다", n=3)
 
+print("\t트리")
+for i in range(7):
+    print(' '*(6-i) + '*'*(i*2-1))
+
+for i in range(4):
+    print((' '*4+'*'*3))
+
+
 
