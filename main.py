@@ -21,4 +21,15 @@ for i in range(4):
     print((' '*4+'*'*3))
 
 
+import turtle as t
+import time
+#꼬북꼬북
+t.shape('turtle')
+t.fd(200)
+t.rt(90)
+t.fd(200)
+t.lt(90)
+
+
+
 
