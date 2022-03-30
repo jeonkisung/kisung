@@ -29,7 +29,16 @@ t.fd(200)
 t.rt(90)
 t.fd(200)
 t.lt(90)
-
+t.bk(200)
+t.lt(90)
+t.fd(400)
+t.lt(90)
+t.fd(200)
+t.lt(90)
+t.fd(200)
+t.lt(90)
+t.fd(200)
+time.sleep(1)
 
 
 
