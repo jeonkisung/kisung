@@ -1,0 +1,1078 @@
+배열변형 및 병합
+[3]
+import numpy as np
+
+def aryInfo(ary) :
+    print('type - ' , type(ary))
+    print('shape - ' , ary.shape)
+    print('dimension - ' , ary.ndim)
+    print('dtype - ' , ary.dtype)
+    print()
+    print('data - \n' , ary)
+reshape
+[4]
+ary = np.arange(0, 12, 1)
+aryInfo(ary)
+type -  <class 'numpy.ndarray'>
+shape -  (12,)
+dimension -  1
+dtype -  int32
+
+data -
+ [ 0  1  2  3  4  5  6  7  8  9 10 11]
+
+[5]
+ary_reshape = ary.reshape(3 , 4)
+aryInfo(ary_reshape)
+type -  <class 'numpy.ndarray'>
+shape -  (3, 4)
+dimension -  2
+dtype -  int32
+
+data -
+ [[ 0  1  2  3]
+ [ 4  5  6  7]
+ [ 8  9 10 11]]
+
+[7]
+ary_reshape = ary.reshape(3 , -1)
+aryInfo(ary_reshape)
+type -  <class 'numpy.ndarray'>
+shape -  (3, 4)
+dimension -  2
+dtype -  int32
+
+data -
+ [[ 0  1  2  3]
+ [ 4  5  6  7]
+ [ 8  9 10 11]]
+
+[10]
+ary_reshape = ary.reshape(-1 , 2 , 3)
+aryInfo(ary_reshape)
+type -  <class 'numpy.ndarray'>
+shape -  (2, 2, 3)
+dimension -  3
+dtype -  int32
+
+data -
+ [[[ 0  1  2]
+  [ 3  4  5]]
+
+ [[ 6  7  8]
+  [ 9 10 11]]]
+
+배열 병합(연결)
+hstack , vstack , dstack , stack , r_[] , c_[], tile
+[19]
+print('hstack - ')
+print('행의 수가 같아야 한다. 열이 확장되는 배열 연결 - ')
+print()
+
+print('ones() array - ')
+ary_one = np.ones((2,3))
+aryInfo(ary_one)
+
+print()
+print('zeros() array - ')
+ary_zeros = np.zeros((2,3))
+aryInfo(ary_zeros)
+
+hstack -
+행의 수가 같아야 한다. 열이 확장되는 배열 연결 -
+
+ones() array -
+type -  <class 'numpy.ndarray'>
+shape -  (2, 3)
+dimension -  2
+dtype -  float64
+
+data -
+ [[1. 1. 1.]
+ [1. 1. 1.]]
+
+zeros() array -
+type -  <class 'numpy.ndarray'>
+shape -  (2, 3)
+dimension -  2
+dtype -  float64
+
+data -
+ [[0. 0. 0.]
+ [0. 0. 0.]]
+
+[20]
+ary_hstack = np.hstack( [ary_one , ary_zeros] )
+aryInfo(ary_hstack)
+type -  <class 'numpy.ndarray'>
+shape -  (2, 6)
+dimension -  2
+dtype -  float64
+
+data -
+ [[1. 1. 1. 0. 0. 0.]
+ [1. 1. 1. 0. 0. 0.]]
+
+[25]
+print('vstack - ')
+print('행의 수가 달라도 된다. 행이 확장되는 배열연결 - ')
+print('단, 열의 수는 같아야 한다.')
+print()
+
+print('ones() array - ')
+ary_one = np.ones((2,3))
+aryInfo(ary_one)
+
+print()
+print('zeros() array - ')
+ary_zeros = np.zeros((5,3))
+aryInfo(ary_zeros)
+vstack -
+행의 수가 달라도 된다. 행이 확장되는 배열연결 -
+단, 열의 수는 같아야 한다.
+
+ones() array -
+type -  <class 'numpy.ndarray'>
+shape -  (2, 3)
+dimension -  2
+dtype -  float64
+
+data -
+ [[1. 1. 1.]
+ [1. 1. 1.]]
+
+zeros() array -
+type -  <class 'numpy.ndarray'>
+shape -  (5, 3)
+dimension -  2
+dtype -  float64
+
+data -
+ [[0. 0. 0.]
+ [0. 0. 0.]
+ [0. 0. 0.]
+ [0. 0. 0.]
+ [0. 0. 0.]]
+
+[26]
+print('concatenate vstack - ')
+print()
+ary_vstack = np.vstack( [ary_one , ary_zeros] )
+aryInfo(ary_vstack)
+concatenate vstack -
+
+type -  <class 'numpy.ndarray'>
+shape -  (7, 3)
+dimension -  2
+dtype -  float64
+
+data -
+ [[1. 1. 1.]
+ [1. 1. 1.]
+ [0. 0. 0.]
+ [0. 0. 0.]
+ [0. 0. 0.]
+ [0. 0. 0.]
+ [0. 0. 0.]]
+
+[28]
+print('dstack - ')
+print('행과 열이 아닌 깊이방향으로 배열을 연결 - ')
+print()
+
+print('ones() array - ')
+ary_one = np.ones((3,4))
+aryInfo(ary_one)
+
+print()
+print('zeros() array - ')
+ary_zeros = np.zeros((3,4))
+aryInfo(ary_zeros)
+dstack -
+행과 열이 아닌 깊이방향으로 배열을 연결 -
+
+ones() array -
+type -  <class 'numpy.ndarray'>
+shape -  (3, 4)
+dimension -  2
+dtype -  float64
+
+data -
+ [[1. 1. 1. 1.]
+ [1. 1. 1. 1.]
+ [1. 1. 1. 1.]]
+
+zeros() array -
+type -  <class 'numpy.ndarray'>
+shape -  (3, 4)
+dimension -  2
+dtype -  float64
+
+data -
+ [[0. 0. 0. 0.]
+ [0. 0. 0. 0.]
+ [0. 0. 0. 0.]]
+
+[30]
+print('concatenate dstack - ')
+print('(3 * 4) -> (3 * 4 * 2)')
+print()
+ary_dstack = np.dstack( [ary_one , ary_zeros] )
+aryInfo(ary_dstack)
+concatenate dstack -
+(3 * 4) -> (3 * 4 * 2)
+
+type -  <class 'numpy.ndarray'>
+shape -  (3, 4, 2)
+dimension -  3
+dtype -  float64
+
+data -
+ [[[1. 0.]
+  [1. 0.]
+  [1. 0.]
+  [1. 0.]]
+
+ [[1. 0.]
+  [1. 0.]
+  [1. 0.]
+  [1. 0.]]
+
+ [[1. 0.]
+  [1. 0.]
+  [1. 0.]
+  [1. 0.]]]
+
+[37]
+print('stack - ')
+print('연결할 배열을 리스트에 담아서 연결 - ')
+print('반드시 shape 이 동일해야 한다 - ')
+print()
+
+
+print('ones() array - ')
+ary_one = np.ones((3,4))
+aryInfo(ary_one)
+
+print()
+print('zeros() array - ')
+ary_zeros = np.zeros((3,4))
+aryInfo(ary_zeros)
+
+stack -
+연결할 배열을 리스트에 담아서 연결 -
+반드시 shape 이 동일해야 한다 -
+
+ones() array -
+type -  <class 'numpy.ndarray'>
+shape -  (3, 4)
+dimension -  2
+dtype -  float64
+
+data -
+ [[1. 1. 1. 1.]
+ [1. 1. 1. 1.]
+ [1. 1. 1. 1.]]
+
+zeros() array -
+type -  <class 'numpy.ndarray'>
+shape -  (3, 4)
+dimension -  2
+dtype -  float64
+
+data -
+ [[0. 0. 0. 0.]
+ [0. 0. 0. 0.]
+ [0. 0. 0. 0.]]
+
+[38]
+print('concatenate stack - ')
+print()
+
+ary_stack = np.stack( [ary_one , ary_zeros] )
+aryInfo(ary_stack)
+concatenate stack -
+
+type -  <class 'numpy.ndarray'>
+shape -  (2, 3, 4)
+dimension -  3
+dtype -  float64
+
+data -
+ [[[1. 1. 1. 1.]
+  [1. 1. 1. 1.]
+  [1. 1. 1. 1.]]
+
+ [[0. 0. 0. 0.]
+  [0. 0. 0. 0.]
+  [0. 0. 0. 0.]]]
+
+[41]
+print('concatenate stack - ')
+print('인수로 axis = 1  , - (3 * 4) -> (3 * 2 * 4)')
+print('인수로 axis = 0  , - (3 * 4) -> (2 * 3 * 4)')
+print()
+
+ary_stack = np.stack( [ary_one , ary_zeros] , axis = 1)
+aryInfo(ary_stack)
+concatenate stack -
+인수로 axis = 1  , - (3 * 4) -> (3 * 2 * 4)
+인수로 axis = 0  , - (3 * 4) -> (2 * 3 * 4)
+
+type -  <class 'numpy.ndarray'>
+shape -  (3, 2, 4)
+dimension -  3
+dtype -  float64
+
+data -
+ [[[1. 1. 1. 1.]
+  [0. 0. 0. 0.]]
+
+ [[1. 1. 1. 1.]
+  [0. 0. 0. 0.]]
+
+ [[1. 1. 1. 1.]
+  [0. 0. 0. 0.]]]
+
+indexer : r_[] , c_[]
+r_ == vstack
+c_ == hstack
+[54]
+print('r_[] - 배열의 좌우연결 - ')
+aryInfo( np.r_[ np.array([1,2,3]) , np.array([4,5,6]) ] )
+
+print()
+print('c_[] - 배열의 차원을 증가시켜서 좌우연결 - ')
+aryInfo( np.c_[ np.array([1,2,3]) , np.array([4,5,6]) ] )
+
+print()
+print('tile - 동일한 배열을 반복해서 연결 - ')
+aryInfo( np.tile( np.array([ [1,2,3] , [4,5,6] ])  , (3,2) ) )
+
+
+r_[] - 배열의 좌우연결 -
+type -  <class 'numpy.ndarray'>
+shape -  (6,)
+dimension -  1
+dtype -  int32
+
+data -
+ [1 2 3 4 5 6]
+
+c_[] - 배열의 차원을 증가시켜서 좌우연결 -
+type -  <class 'numpy.ndarray'>
+shape -  (3, 2)
+dimension -  2
+dtype -  int32
+
+data -
+ [[1 4]
+ [2 5]
+ [3 6]]
+
+tile - 동일한 배열을 반복해서 연결 -
+type -  <class 'numpy.ndarray'>
+shape -  (6, 6)
+dimension -  2
+dtype -  int32
+
+data -
+ [[1 2 3 1 2 3]
+ [4 5 6 4 5 6]
+ [1 2 3 1 2 3]
+ [4 5 6 4 5 6]
+ [1 2 3 1 2 3]
+ [4 5 6 4 5 6]]
+
+[47]
+
+print('ones() array - ')
+ary_one = np.ones((2,3))
+aryInfo(ary_one)
+
+print()
+print('zeros() array - ')
+ary_zeros = np.zeros((2,3))
+aryInfo(ary_zeros)
+
+ones() array -
+type -  <class 'numpy.ndarray'>
+shape -  (2, 3)
+dimension -  2
+dtype -  float64
+
+data -
+ [[1. 1. 1.]
+ [1. 1. 1.]]
+
+zeros() array -
+type -  <class 'numpy.ndarray'>
+shape -  (2, 3)
+dimension -  2
+dtype -  float64
+
+data -
+ [[0. 0. 0.]
+ [0. 0. 0.]]
+
+[49]
+aryInfo( np.c_[ ary_one , ary_zeros ] )
+print()
+aryInfo( np.r_[ ary_one , ary_zeros ] )
+type -  <class 'numpy.ndarray'>
+shape -  (2, 6)
+dimension -  2
+dtype -  float64
+
+data -
+ [[1. 1. 1. 0. 0. 0.]
+ [1. 1. 1. 0. 0. 0.]]
+
+type -  <class 'numpy.ndarray'>
+shape -  (4, 3)
+dimension -  2
+dtype -  float64
+
+data -
+ [[1. 1. 1.]
+ [1. 1. 1.]
+ [0. 0. 0.]
+ [0. 0. 0.]]
+
+# 위 결과가 나올 수 있도록 함수를 이용하여 작성해 보세요~~~
+# array([[   0.,    0.,    0.,    1.,    1.],
+#        [   0.,    0.,    0.,    1.,    1.],
+#        [   0.,    0.,    0.,    1.,    1.],
+#        [  10.,   20.,   30.,   40.,   50.],
+#        [  60.,   70.,   80.,   90.,  100.],
+#        [ 110.,  120.,  130.,  140.,  150.],
+#        [   0.,    0.,    0.,    1.,    1.],
+#        [   0.,    0.,    0.,    1.,    1.],
+#        [   0.,    0.,    0.,    1.,    1.],
+#        [  10.,   20.,   30.,   40.,   50.],
+#        [  60.,   70.,   80.,   90.,  100.],
+#        [ 110.,  120.,  130.,  140.,  150.]])
+
+[58]
+ary_zero = np.zeros((3,3))
+ary_one = np.ones((3,2))
+
+ary_dem = np.arange(10,160,10).reshape(3, -1)
+
+ary_hstack = np.hstack([ary_zero, ary_one])
+ary_vstack = np.vstack([ary_hstack, ary_dem])
+
+aryTile = np.tile(ary_vstack,(2,1))
+
+
+aryInfo(aryTile)
+type -  <class 'numpy.ndarray'>
+shape -  (12, 5)
+dimension -  2
+dtype -  float64
+
+data -
+ [[  0.   0.   0.   1.   1.]
+ [  0.   0.   0.   1.   1.]
+ [  0.   0.   0.   1.   1.]
+ [ 10.  20.  30.  40.  50.]
+ [ 60.  70.  80.  90. 100.]
+ [110. 120. 130. 140. 150.]
+ [  0.   0.   0.   1.   1.]
+ [  0.   0.   0.   1.   1.]
+ [  0.   0.   0.   1.   1.]
+ [ 10.  20.  30.  40.  50.]
+ [ 60.  70.  80.  90. 100.]
+ [110. 120. 130. 140. 150.]]
+
+delete() 함수
+axis 기준행과 열을 삭제할 수 있다. axis = 0 -> 행, axis = 1 -> 열
+axis 지정하지 않으면 1차원변환 후 삭제
+원본배열을 변경하지 않고 새로운 배열 return
+[96]
+ary = np.random.randint(0, 10 , (3,4))
+aryInfo(ary)
+type -  <class 'numpy.ndarray'>
+shape -  (3, 4)
+dimension -  2
+dtype -  int32
+
+data -
+ [[9 7 6 7]
+ [9 4 6 0]
+ [6 0 8 5]]
+
+[92]
+ary_delete = np.delete(ary , 1)
+aryInfo(ary_delete)
+type -  <class 'numpy.ndarray'>
+shape -  (11,)
+dimension -  1
+dtype -  int32
+
+data -
+ [8 1 4 7 1 5 7 9 8 2 4]
+
+[95]
+ary_delete = np.delete(ary , 1 , axis = 0)
+aryInfo(ary_delete)
+type -  <class 'numpy.ndarray'>
+shape -  (2, 4)
+dimension -  2
+dtype -  int32
+
+data -
+ [[1 5 8 4]
+ [0 5 7 6]]
+
+[97]
+ary_delete = np.delete(ary , 1 , axis = 1)
+aryInfo(ary_delete)
+type -  <class 'numpy.ndarray'>
+shape -  (3, 3)
+dimension -  2
+dtype -  int32
+
+data -
+ [[9 6 7]
+ [9 6 0]
+ [6 8 5]]
+
+loadtxt()
+[107]
+raw_data = np.loadtxt('./numpy_data/crime_in_Seoul.csv' ,
+                     delimiter = '\,' ,
+                     dtype = np.object ,
+                     skiprows = 1)
+
+data = raw_data[ :  , np.newaxis]
+
+aryInfo(data)
+print()
+print()
+print(data[0][0])
+type -  <class 'numpy.ndarray'>
+shape -  (31, 1)
+dimension -  2
+dtype -  object
+
+data -
+ [['중부서,2,2,3,2,105,65,"1,395",477,"1,355","1,170"']
+ ['종로서,3,3,6,5,115,98,"1,070",413,"1,278","1,070"']
+ ['남대문서,1,0,6,4,65,46,"1,153",382,869,794']
+ ['서대문서,2,2,5,4,154,124,"1,812",738,"2,056","1,711"']
+ ['혜화서,3,2,5,4,96,63,"1,114",424,"1,015",861']
+ ['용산서,5,5,14,14,194,173,"1,557",587,"2,050","1,704"']
+ ['성북서,2,2,2,1,86,71,953,409,"1,194","1,015"']
+ ['동대문서,5,5,13,13,173,146,"1,981",814,"2,548","2,227"']
+ ['마포서,8,8,14,10,294,247,"2,555",813,"2,983","2,519"']
+ ['영등포서,14,12,22,20,295,183,"2,964",978,"3,572","2,961"']
+ ['성동서,4,4,9,8,126,119,"1,607",597,"1,612","1,395"']
+ ['동작서,5,5,9,5,285,139,"1,865",661,"1,910","1,587"']
+ ['광진서,4,4,14,26,240,220,"3,026","1,277","2,625","2,180"']
+ ['서부서,2,2,2,1,70,59,819,293,"1,192","1,038"']
+ ['강북서,7,8,14,13,153,126,"1,434",618,"2,649","2,348"']
+ ['금천서,3,4,6,6,151,122,"1,567",888,"2,054","1,776"']
+ ['중랑서,13,12,11,9,187,148,"2,135",829,"2,847","2,407"']
+ ['강남서,3,3,15,12,300,225,"2,411",984,"2,465","2,146"']
+ ['관악서,9,8,12,14,320,221,"2,706",827,"3,298","2,642"']
+ ['강서서,7,8,13,13,262,191,"2,096","1,260","3,207","2,718"']
+ ['강동서,4,3,6,8,156,123,"2,366",789,"2,712","2,248"']
+ ['종암서,3,3,3,3,64,53,832,332,"1,015",840']
+ ['구로서,8,6,15,11,281,164,"2,335",889,"3,007","2,432"']
+ ['서초서,7,4,8,5,334,193,"1,982",905,"1,852","1,607"']
+ ['양천서,3,5,6,3,120,105,"1,890",672,"2,509","2,030"']
+ ['송파서,11,10,13,10,220,178,"3,239","1,129","3,295","2,786"']
+ ['노원서,10,10,7,7,197,121,"2,193",801,"2,723","2,329"']
+ ['방배서,1,2,1,1,59,56,653,186,547,491']
+ ['은평서,1,1,7,5,96,82,"1,095",418,"1,461","1,268"']
+ ['도봉서,3,3,9,10,102,106,"1,063",478,"1,487","1,303"']
+ ['수서서,10,7,6,6,149,124,"1,439",666,"1,819","1,559"']]
+
+
+중부서,2,2,3,2,105,65,"1,395",477,"1,355","1,170"
+
+C:\Users\CAMPUS~1\AppData\Local\Temp/ipykernel_7024/1824851806.py:3: DeprecationWarning: `np.object` is a deprecated alias for the builtin `object`. To silence this warning, use `object` by itself. Doing this will not modify any behavior and is safe.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  dtype = np.object ,
+
+배열의 연산
+[108]
+%%time
+
+x = np.arange(1, 10001)
+y = np.arange(10001 , 20001)
+
+z = np.zeros_like(x)
+
+for i in range(10000) :
+    z[i] = x[i] + y[i]
+Wall time: 6 ms
+
+[109]
+%%time
+
+z = x + y
+Wall time: 0 ns
+
+[110]
+from IPython.display import Image
+Image('c:/img/img/numpy_vectorized_operation_img.png' , width = 700)
+
+[116]
+print('비교 연산 - ')
+
+tmpX = np.array([1,2,3,4])
+tmpY = np.array([5,2,6,4])
+tmpZ = np.array([1,2,3,4])
+
+print( tmpX == tmpY )
+print( tmpX >= tmpY )
+print('all - 모든 배열의 원소가 같은지 알고 싶을 때 - ' ,  np.all(tmpX == tmpZ) )
+print('all - 모든 배열의 원소가 같은지 알고 싶을 때 - ' ,  np.all(tmpX == tmpY) )
+비교 연산 -
+[False  True False  True]
+[False  True False  True]
+all - 모든 배열의 원소가 같은지 알고 싶을 때 -  True
+all - 모든 배열의 원소가 같은지 알고 싶을 때 -  False
+
+[119]
+ary = np.arange(10)
+print('벡터 연산 - ' , ary * 100 )
+
+print()
+ary = np.arange(12).reshape(3,4)
+print('행렬 연산 - ' , ary * 100 )
+
+print()
+print('shape이 다른 벡터와 행렬의 연산은 가능할까요 ? - 가능하다 ')
+print('브로드 캐스팅 - ')
+벡터 연산 -  [  0 100 200 300 400 500 600 700 800 900]
+
+행렬 연산 -  [[   0  100  200  300]
+ [ 400  500  600  700]
+ [ 800  900 1000 1100]]
+
+[120]
+Image('c:/img/img/numpy_broadcasting_img.png' , width = 700)
+
+[121]
+Image('c:/img/img/numpy_broadcasting_diff_img.png' , width = 700)
+
+[122]
+X = np.arange(10)
+X
+array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+[123]
+X + 1
+array([ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10])
+[124]
+X.reshape(-1, 5)
+array([[0, 1, 2, 3, 4],
+       [5, 6, 7, 8, 9]])
+[125]
+X.reshape(-1, 5) + 1
+array([[ 1,  2,  3,  4,  5],
+       [ 6,  7,  8,  9, 10]])
+[161]
+'''
+array([
+    [0, 1, 2],
+    [1, 2, 3],
+    [2, 3, 4],
+    [3, 4, 5],
+    [4, 5, 6]])
+'''
+
+X = np.vstack( [ range(7)[idx : idx+3] for idx in range(5)] )
+
+aryInfo(X)
+type -  <class 'numpy.ndarray'>
+shape -  (5, 3)
+dimension -  2
+dtype -  int32
+
+data -
+ [[0 1 2]
+ [1 2 3]
+ [2 3 4]
+ [3 4 5]
+ [4 5 6]]
+
+[132]
+y = np.arange(5).reshape(5,1)
+y
+array([[0],
+       [1],
+       [2],
+       [3],
+       [4]])
+[133]
+X + y
+array([[ 0,  1,  2],
+       [ 2,  3,  4],
+       [ 4,  5,  6],
+       [ 6,  7,  8],
+       [ 8,  9, 10]])
+차원축소 연산
+min , max
+argmin , argmax -> 인덱스 리턴
+sum , mean , median , std , var
+all , any
+[134]
+X = np.array([1,2,3,4,5])
+print('vector value - ' , X)
+vector value -  [1 2 3 4 5]
+
+[148]
+print('sum - ')
+print('sum - ' , np.sum(X) )
+print('sum - ' , X.sum() )
+
+print()
+print('min - ')
+print('min - ' , np.min(X) )
+print('min - ' , X.min() )
+
+print()
+print('max - ')
+print('max - ' , np.max(X) )
+print('max - ' , X.max() )
+
+print()
+print('argmin - index')
+print('max - ' , np.argmin(X) )
+print('max - ' , X.argmin() )
+
+print()
+print('argmax - index')
+print('max - ' , np.argmax(X) )
+print('max - ' , X.argmax() )
+
+print()
+print('mean - ')
+print('mean - ' , np.mean(X) )
+print('mean - ' , X.mean() )
+
+print()
+print('median - ')
+print('median - ' , np.median(X) )
+# print('median - ' , X.median() ) -- error
+
+print()
+print('all - ' , np.all([True, False, True]))
+print('all - ' , np.all([True, True, True]) )
+
+print()
+print('any - ' , np.any([True, False, True]))
+print('any - ' , np.any([False, False, False]) )
+sum -
+sum -  15
+sum -  15
+
+min -
+min -  1
+min -  1
+
+max -
+max -  5
+max -  5
+
+argmin - index
+max -  0
+max -  0
+
+argmax - index
+max -  4
+max -  4
+
+mean -
+mean -  3.0
+mean -  3.0
+
+median -
+median -  3.0
+
+all -  False
+all -  True
+
+any -  True
+any -  False
+
+[149]
+ary_zero = np.zeros( (100, 100) , dtype = 'i')
+ary_zero
+array([[0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0],
+       ...,
+       [0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0]], dtype=int32)
+[151]
+np.any(ary_zero != 0)
+False
+[152]
+np.all(ary_zero == ary_zero)
+True
+만약, 연산의 대상이 2차원 행렬이라면? -
+axis 축의 방향을 설정해야 한다.
+행 1 , 열 0
+[153]
+ary = np.arange(1, 21, 1).reshape(4, -1)
+ary
+array([[ 1,  2,  3,  4,  5],
+       [ 6,  7,  8,  9, 10],
+       [11, 12, 13, 14, 15],
+       [16, 17, 18, 19, 20]])
+[156]
+print('matrix sum() - ')
+print('matrix sum - ' , np.sum(ary , axis = 0) )
+print('matrix sum - ' , ary.sum(axis = 1 ) )
+matrix sum() -
+matrix sum -  [34 38 42 46 50]
+matrix sum -  [15 40 65 90]
+
+[159]
+print('argmin - index')
+print('matrix argmin - ' , np.argmin(ary , axis = 1 ))
+print('matrix argmax - ' , np.argmax(ary , axis = 1 ))
+argmin - index
+matrix argmin -  [0 0 0 0]
+matrix argmax -  [4 4 4 4]
+
+[162]
+ary = np.random.randint(0, 100000000 , (5,6))
+ary
+array([[ 6824433, 39162145, 69443318, 96480899, 30957610, 56801197],
+       [74220188, 63296928, 68930348, 15364880, 21396353, 33528218],
+       [24765018, 31882903, 64568220, 71875916,  2365746, 58476580],
+       [73973194, 76514493,    73357, 10899884, 11235433, 64845578],
+       [39445184, 40225565, 91508090, 16734229, 99330939, 95893424]])
+[163]
+print('[실습] - 위 데이터를 이용해서 전체의 최대값 ,  각 행의 합, 각 행의 최대값, 각 열의 평균, 각 열의 최소값을 구해본다면 - ')
+[실습] - 위 데이터를 이용해서 전체의 최대값 ,  각 행의 합, 각 행의 최대값, 각 열의 평균, 각 열의 최소값을 구해본다면 -
+
+[164]
+print('전체의 최대값 - ' , np.max(ary))
+전체의 최대값 -  99330939
+
+[179]
+print('각 행의 합 - ' , np.sum(ary , axis = 1 ))
+print('각 행의 합     FOR - ' , np.hstack(  [ ary[idx].sum() for idx in range( ary.shape[0] ) ] ))
+print('각 행의 최대값 FOR - ' , np.hstack(  [ ary[idx].max() for idx in range( ary.shape[0] ) ] ))
+print('각 열의 평균   FOR - ' , np.hstack(  [ ary[ : , idx].mean() for idx in range( ary.shape[1] ) ] ))
+print('각 열의 최소값 FOR - ' , np.hstack(  [ ary[ : , idx].min() for idx in range( ary.shape[1] ) ] ))
+각 행의 합 -  [299669602 276736915 253934383 237541939 383137431]
+각 행의 합     FOR -  [299669602 276736915 253934383 237541939 383137431]
+각 행의 최대값 FOR -  [96480899 74220188 71875916 76514493 99330939]
+각 열의 평균   FOR -  [43845603.4 50216406.8 58904666.6 42271161.6 33057216.2 61908999.4]
+각 열의 최소값 FOR -  [ 6824433 31882903    73357 10899884  2365746 33528218]
+
+정렬(sort)
+np.sort(ary) - inplace = F
+ary.sort() - inplace = T
+[185]
+ary = np.arange(10)
+ary
+array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+[189]
+np.random.shuffle(ary)
+ary
+array([4, 0, 8, 3, 2, 5, 7, 9, 1, 6])
+[184]
+ary.sort()
+ary
+array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+[187]
+np.sort(ary)
+array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+[190]
+ary
+array([4, 0, 8, 3, 2, 5, 7, 9, 1, 6])
+[195]
+print('desc - ')
+ary.sort()
+ary = ary[::-1]
+ary
+desc -
+
+array([9, 8, 7, 6, 5, 4, 3, 2, 1, 0])
+[197]
+print('matrix sort - ')
+ary = np.random.randint(0, 17 , (4,4))
+ary
+matrix sort -
+
+array([[10, 11,  5, 13],
+       [13, 15, 10, 14],
+       [15, 15,  4,  0],
+       [ 0,  6, 14,  0]])
+[198]
+print('행 정렬 - axis = 1 ')
+print( np.sort(ary , axis = 1))
+행 정렬 - axis = 1
+[[ 5 10 11 13]
+ [10 13 14 15]
+ [ 0  4 15 15]
+ [ 0  0  6 14]]
+
+[200]
+print('열 정렬 - axis = 0 ')
+print( np.sort(ary , axis = 0))
+열 정렬 - axis = 0
+[[ 0  6  4  0]
+ [10 11  5  0]
+ [13 15 10 13]
+ [15 15 14 14]]
+
+[201]
+print('inplace = True ')
+ary.sort(axis = 1)
+inplace = True
+
+[202]
+ary
+array([[ 5, 10, 11, 13],
+       [10, 13, 14, 15],
+       [ 0,  4, 15, 15],
+       [ 0,  0,  6, 14]])
+[203]
+ary = np.array([4,3,5,7])
+ary
+array([4, 3, 5, 7])
+[204]
+print('정렬된 인덱스를 필요로 한다면? - ')
+idx = np.argsort(ary)
+idx
+정렬된 인덱스를 필요로 한다면? -
+
+array([1, 0, 2, 3], dtype=int64)
+[205]
+ary[idx]
+array([3, 4, 5, 7])
+[209]
+print('matrix sort - ')
+ary = np.random.randint(0, 17 , (4,4))
+aryInfo(ary)
+
+matrix sort -
+type -  <class 'numpy.ndarray'>
+shape -  (4, 4)
+dimension -  2
+dtype -  int32
+
+data -
+ [[ 9 11 13  5]
+ [13  5  1 12]
+ [16 16 13  9]
+ [ 7  8  6  0]]
+
+[217]
+print('정렬하기 전의 인덱스 값을 출력 - ')
+ary[0].argsort()
+정렬하기 전의 인덱스 값을 출력 -
+
+array([3, 0, 1, 2], dtype=int64)
+row 또는 col 추가하는 방법
+concatenate( , axis = )
+[219]
+ary = np.array([[1,2,3],[4,5,6]])
+aryInfo(ary)
+type -  <class 'numpy.ndarray'>
+shape -  (2, 3)
+dimension -  2
+dtype -  int32
+
+data -
+ [[1 2 3]
+ [4 5 6]]
+
+[221]
+ary_row = np.array([7,8,9])
+aryInfo(ary_row)
+type -  <class 'numpy.ndarray'>
+shape -  (3,)
+dimension -  1
+dtype -  int32
+
+data -
+ [7 8 9]
+
+[224]
+ary_new = np.concatenate( (ary , ary_row.reshape(1,3)), axis = 0)
+ary_new
+array([[1, 2, 3],
+       [4, 5, 6],
+       [7, 8, 9]])
+[223]
+ary_row.reshape(1,3)
+array([[7, 8, 9]])
+[225]
+ary_col = np.array([7,8,9,10])
+ary_col
+array([ 7,  8,  9, 10])
+[228]
+ary_new = np.concatenate( (ary , ary_col.reshape(2,2)), axis = 1)
+ary_new
+array([[ 1,  2,  3,  7,  8],
+       [ 4,  5,  6,  9, 10]])
+[229]
+print('[실습] - 200개의 표준정규분포 샘플을 만들어서 내림차순으로 상위 5%까지의 결과를 출력한다면? - ')
+[실습] - 200개의 표준정규분포 샘플을 만들어서 내림차순으로 상위 5%까지의 결과를 출력한다면? -
+
+[231]
+ary = np.random.randn(200)
+aryInfo(ary)
+type -  <class 'numpy.ndarray'>
+shape -  (200,)
+dimension -  1
+dtype -  float64
+
+data -
+ [-0.49803729  1.4103048   0.15088962 -0.76269909 -1.01152154  0.27890778
+ -1.19483294  0.73591126 -1.42828196 -2.80069233  0.13576075 -0.09209194
+ -1.68694088 -0.10974086 -0.99957593 -0.99740562 -0.26064816  0.15810743
+  0.16400984  0.47616604  1.31842375  1.62808505 -0.86950966 -0.02358354
+ -0.72586262  1.34238656 -0.24753474 -1.49017993  1.84281839  0.49390087
+ -0.55059136  0.15991374 -0.48607038  1.22822756 -0.77326971 -0.53397304
+ -1.16728675 -1.42605974  0.86985814  0.53851877  1.4905635  -1.1517104
+  0.98081839 -0.65009984 -0.97552732 -0.81483522 -0.34252593  0.32582223
+ -1.60245887  0.35047015  1.2705204  -1.40811894  0.4486055  -0.16563815
+ -1.47605533  0.02193723 -1.43937975 -0.23115255  0.4992366  -0.5729558
+ -1.03464182  2.78808242 -1.69840189 -0.52402182 -0.88850215  1.42859022
+  1.97930109  0.39720997  0.52132589  0.55629883 -0.61668748 -1.12110109
+ -0.61725519  0.37876691  0.19110776 -1.41753923  0.59814571 -0.53995454
+  0.3904888   0.62073896  0.57413914 -0.38214987  0.21849322 -1.69667459
+ -1.22326537  0.08703363 -0.15075671  1.10433363  0.73958023  0.59515902
+  0.1173645  -1.19714828 -0.59076688 -0.58248013  0.45965188 -0.61746959
+ -1.01458106  0.7421186   0.926677    2.81180076  0.6418427   0.79065058
+ -0.32597512 -2.6916248   0.10890382 -0.86567685 -0.14135464  0.07306879
+  0.54312958  1.12798665  0.78608434 -0.97126647 -1.45933212 -0.69633236
+  1.61375338  1.10667803  3.47989269 -1.01736754 -1.45216777  1.36066692
+  1.15638307 -0.97448167  0.68835588  0.63002985 -1.02345044  1.49609487
+ -1.90987112  1.45571016  0.5207413   1.38339076 -1.65464658 -1.28013949
+  1.45020544  1.32234335 -0.129691   -1.06116313 -0.66331455  0.149433
+  0.44385064 -1.15409947 -0.1009629  -0.26226468  1.29187598  0.97140759
+ -0.40187164 -1.34806609 -0.15027414  0.50606955 -0.53244678 -0.63975073
+ -1.67402402 -0.0092088   0.34437091 -0.87194979 -0.83574678  0.93181312
+ -0.55930509 -1.37949435 -1.58531462 -2.82447878  0.16341904  0.09080288
+ -0.21754709  1.45683056  0.02340095 -0.54678263 -1.04404055  1.4319783
+  0.55972425  1.29939533  1.33060258  0.19755761 -0.37591448  0.22391826
+  0.06870603 -0.6571823   0.18754621 -2.51157352 -0.90215224  3.11962537
+ -0.17222514  0.62495958 -0.8212652  -0.50576223  0.66806636  0.35630465
+  1.81347118  1.14623578  0.22636801  2.21647067 -0.85944302 -0.75130964
+  0.21653483  2.13763442 -0.52404292 -1.16025347 -1.64324407 -0.10711665
+  0.60561091  0.05701804]
+
+[234]
+ary.sort()
+ary_desc = ary[::-1]
+
+int(len(ary_desc) * 0.05)
+10
+[235]
+answer = np.sort(ary)[::-1][ : int(len(ary) * 0.05)]
+answer
+array([3.47989269, 3.11962537, 2.81180076, 2.78808242, 2.21647067,
+       2.13763442, 1.97930109, 1.84281839, 1.81347118, 1.62808505])
