@@ -1,0 +1,55 @@
+로컬에 [가상환경]
+
+- conda create -n tensorEvn python=3.7
+- conda activate tensorEvn
+
+- pip install tensorflow==2.3.1
+- pip install scikit_learn==0.23.2
+- pip install pandas
+
+- conda install jupyter notebook
+import tensorflow as tf
+import numpy      as np
+
+from   tensorflow.keras.models import  Sequential , clone_model
+from   tensorflow.keras.layers import  Dense , Activation , InputLayer
+
+
+print('tensor 란 ? 다차원 배열 - ')
+print('rank 란? 차원 - rank=0(scalar) , rank=1(vector) , rank=2(matrix) , rank=3(3D)')
+
+print('텐서 생성 및 랭크 확인!!')
+
+scalar = tf.constant(1)
+vector = tf.constant([1,2,3])
+matrix = tf.constant([[1,2,3],[4,5,6]])
+tensor = tf.constant([ [[1,2,3],[4,5,6]] ,[[1,2,3],[4,5,6]] ] )
+print()
+print(tf.rank(scalar))
+print(tf.rank(vector))
+print(tf.rank(matrix))
+print(tf.rank(tensor))
+
+print('mlp - 입력층  히든층  출력층')
+
+print('01. 모델 생성')
+model = Sequential()
+
+print('02. 층 추가')
+model.add( Dense(units = 1 , input_shape = [1] ) )
+
+
+print('03. 모델 컴파일')
+model.compile(loss = 'mean_squared_error' , optimizer = 'sgd')
+
+# y = 2x - 1
+# y = wx + b
+
+X_train = np.array([-1.0 , 0.0  , 1.0 , 2.0 , 3.0 , 4.0 ])
+y_train = np.array([-3.0 , -1.0 , 1.0 , 3.0 , 5.0 , 7.0 ])
+
+print('04. 모델 학습')
+model.fit(X_train , y_train , epochs = 500)
+
+print('05. 예측')
+y_pred = model.predict([5.0])
