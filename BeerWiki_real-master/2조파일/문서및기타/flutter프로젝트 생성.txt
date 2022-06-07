@@ -1,0 +1,63 @@
+1. java 설치 (확인 : cmd java -version)
+
+2. 안드로이드 설치 (sdk 32로)
+
+3. 플루터 설치
+
+4. file - settings - module - Plugins - 검색(flutter) - install
+
+4-1. git - clone(아래꺼 거의설치됨)
+
+5. 안드로이드 스튜디오 - File - New - New Flutter Project - beerwiki 생성
+
+6. pubspec.yaml
+
+7. lib 파일 복사
+
+8. ios - Runner - Assets.xcassets 복사 (App 아이콘)
+https://asufi.tistory.com/entry/Flutter-Flutter-%EC%95%B1-%EC%B6%9C%EC%8B%9C-%ED%95%98%EA%B8%B0-release-build-apk
+
+9. ios - Runner - Info.plist - CFBundleDisplayName의 string을 BeerWiki로 변경(App 라벨)
+
+10. ios - Runner - Info.plist - 마지막에 아래 두줄 추가
+<key>NSPhotoLibraryUsageDescription</key>
+<string>Example usage description</string> 
+
+11. android - app - src - debug - AndroidManifest.xml & Profile - AndroidManifest.xml에 추가
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
+
+12. android - app - src - main - AndroidManifest.xml label 수정
+android:label="BeerWiki"
+
+13. android - app - src - maiin - res - minmap-* - ic_launcher.png 파일을 모두 복사(App 아이콘)
+
+14. android - app - build.gradle 수정(복사)
+- GradleException -> FileNotFoundException 으로 변경
+- compileSdkVersion 31
+- minSdkVersion 21
+- targetSdkVersion 31
+android 밑에 아래 aaptOptons 붙여넣기
+aaptOptions {
+	noCompress 'tflite'
+	noCompress 'lite'
+}
+
+ 
+15. assets 폴더 만들어서 label, tflite, beer_img_01.jpeg 복사
+
+16. 터미널에서  > flutter pub get
+
+
+
+
+# 플러터 에러 "Cannot run with sound null safety" 
+https://happyguy81.tistory.com/138
+Run - Edit Configurations... - Additional run args 에서
+--no-sound-null-safety  추가
+
+# android - app - build.gradle Properties 에러날때
+https://ilsognobella.tistory.com/29
+File - Project Structure - Modules - Module SDK - Android API 32로 변경
+
