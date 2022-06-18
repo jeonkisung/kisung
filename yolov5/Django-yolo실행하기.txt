@@ -1,0 +1,22 @@
+Django yolo 실행하기
+Pycharm terminal에 들어가서 
+python manage.py runserver
+python manage.py makemigrations
+python manage.py migrate
+ModuleNotFoundError: No module named 'crispy_forms'
+pip install django-crispy-forms
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/Users/crid2/django_yolo_web/yolov5_code\\hubconf.py'
+윤섭님 파일과 경로가 달라서 생긴 문제
+Apps – image – views.py 에서 path_hubconfig와 path_weightfile의 경로를 파일이 저장된 경로로 바꿔주기
+ModuleNotFoundError: No module named 'cv2’
+pip install opencv-python
+ModuleNotFoundError: No module named 'torchvision'
+pip install torchvision
+AttributeError: 'Upsample' object has no attribute 'recompute_scale_factor'
+
+Upsampling.py에서 154번 줄 주석 처리 후 실행
+만약 NameError가 떴다면, 154줄 주석 처리할 때 오타(153줄의 괄호 닫기)가 있는지 확인
++ media 디렉토리에 yolo_out 폴더 만든 후 image0.jpg 파일 아무거나 만들기
+여기까지 했으면 person, cellphone 등 객체를 인식하는 Django 완성
+여기에 best.pt를 3번에 설정했던 yolov5s.pt 위치에 넣고 대체하기 → 옷 구분하는 Django 완성
+
