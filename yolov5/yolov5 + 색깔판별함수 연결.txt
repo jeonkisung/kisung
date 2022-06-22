@@ -1,0 +1,92 @@
+
+0 번째  python 라이브러리 tensorflow 약 400메가 설치 필요 
+anacoda cmd 창에 pip install tensorflow  입력 
+
+
+
+apps/image/views.py 아래 내용 복사 후 붙여넣기 (color 판별함수 tensorflow 기반이기 때문에 필요  ) 
+
+# 1) 컬러함수 필요 라이브러리
+from tensorflow.keras.preprocessing import image
+from tensorflow.keras.models import load_model
+import numpy as np
+
+# 2) color.h5 약 78메가 파일을 지정(기본적으로 train_file 안에 파일은 용량문제로 깃허브 공유불가로 별도 다운로드 후 
+업로드 필요 , 아래 yolov5_code/train_file 폴더에 저장 추천 서버 작동시 먼저 로드된 상태를 유지 
+라이브러리 바로 아래에 복수 후 붙여넣기 혹은 지정 
+
+model = load_model(abs_path + 'yolov5_code/train_file/color.h5')
+
+
+# 3) 연결코드
+
+class UploadImage(CreateView) 아래가 아닌 위에 아래 함수 복사 후 붙여넣기 
+***매우중요 'media/crop/crop0.jpg' 이 폴더와 파일이 없을경우 생성 필요 (이미지에 내용무관 ) 
+
+
+def color_classfication(numpy_value) :
+        global color_result
+        crop_image = im.fromarray(numpy_value , mode=None)
+        crop_image.save('media/crop/crop0.jpg')
+        img_src = 'media/crop/crop0.jpg'
+        test_img = image.load_img(img_src, target_size=(200, 200))
+        x = image.img_to_array(test_img)
+        x = np.expand_dims(x, axis=0)
+        image_ = np.vstack([x])
+        classes = model.predict(image_, batch_size=10)
+        print('##### cloths image result ####')
+        print()
+        print('pred - ', classes[0])
+        print('color :' , np.argmax(classes[0]))
+        print()
+        color_result = np.argmax(classes[0])
+
+
+
+ # 라운딩 박스 세팅수와 crops 이미지 갯수가 불일치 에러
+            crops = results.crop(save=False)  # cropped detections dictionary , True 이미지 생성
+            test01 = crops[0]['label'],
+
+     # 라운딩 박스 세팅수와 crops 이미지 갯수가 불일치 에러
+            crops = results.crop(save=False)  # cropped detections dictionary , True 이미지 생성
+            # model.max_det = 1 개일때 객체가 0이면 'None'값을 반환
+            try :
+                test01 = crops[0]['label']
+
+                # 4) 크롭된 이미지 색깔판별 함수 호출 color_classfiaction()
+                # [:,:,::-1] BGR -> RGB 값으로 전환 넘파이를 이미지 저장시 색상반전을 보정역활
+                color_classfication(crops[0]['im'][:, :, ::-1])
+
+                print('black: 0, blue: 1, green: 2, pattern: 3, red: 4, white: 5')
+                print(test01)
+                print(crops[0]['im'].shape)
+
+            except IndexError :
+                test01 = 'No detect'
+
+#  color_result를 context 에 정의 corlor_result 판별한 예측 숫자를 반환 
+ form = ImageUploadForm()
+            context = {
+                "form": form,
+                "inference_img": inference_img,
+                'cloths_type' : cloths_type,
+                'test01' : test01 ,
+*********     'color01' :  color_result , ***************
+
+
+5 ) label 뒤 확률 제거 ex) 스커트 0.95 -> 스커트 
+
+common.py 
+
+def crop 함수에서 
+
+label = f'{self.names[int(cls)]} {conf:.2f}' 
+ - > {conf:2f} 삭제 
+
+수정 
+label = f'{self.names[int(cls)]}'
+
+
+
+
+
